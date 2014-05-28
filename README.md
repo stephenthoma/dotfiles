@@ -1,6 +1,6 @@
 dotfiles
 ========
-Install with homesick via
-'''
+Install with homesick via:
+
 homesick clone sthoma/dotfiles
-'''
+
