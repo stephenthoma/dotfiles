@@ -9,7 +9,6 @@ call pathogen#helptags()
 syntax on
 filetype plugin indent on
 
-“ 
 set background=dark
 colorscheme solarized
 
@@ -27,9 +26,6 @@ imap jj <Esc>
 
 " Always show cursor position
 set ruler
-
-“ Backspace over anything
-set backspace=indent,sol,start
 
 " No more help
 nmap <F1> <Esc>
@@ -51,11 +47,11 @@ if has("autocmd")
         \ 	exe "normal g'\"" |
         \ endif
 
-	“ Make Python indentation follow PEP8
+	" Make Python indentation follow PEP8
 	au FileType python set local softtabstop=4 tabstop=4 shiftwidth=4
 
 else
-	set autoindent 
+	set autoindent
 endif
 
 
