@@ -28,3 +28,5 @@
 	pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
 [push]
 	default = simple
+[credential]
+	helper = osxkeychain
