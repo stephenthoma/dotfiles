@@ -10,3 +10,5 @@ alias lsa='ls -A'
 alias cls='clear; ls'
 
 alias tu='top -o cpu'
+
+alias gs='git status'
