@@ -20,6 +20,8 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
+" Backspace over anything
+set backspace=2
 
 " jj to leave Insert mode
 imap jj <Esc>
@@ -46,9 +48,6 @@ if has("autocmd")
 	\ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ 	exe "normal g'\"" |
         \ endif
-
-	" Make Python indentation follow PEP8
-	au FileType python set local softtabstop=4 tabstop=4 shiftwidth=4
 
 else
 	set autoindent
