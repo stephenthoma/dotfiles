@@ -4,4 +4,5 @@ unsetopt correct_all
 [[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
 source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/opt/autoenv/activate.sh
 eval "$(rbenv init -)"
