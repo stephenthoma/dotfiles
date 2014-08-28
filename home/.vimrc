@@ -53,8 +53,7 @@ else
 	set autoindent
 endif
 
-
-
+nmap <silent> <special> <F2> :NERDTreeToggle<RETURN>
 
 " Use powerline
 "python from powerline.vim import setup as powerline_setup
