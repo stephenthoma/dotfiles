@@ -20,6 +20,12 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
+
+" Toggle auto-indent for pasting
+nnoremap <F3> :set invpaste paste?<CR>
+set pastetoggle=<F3>
+set showmode
+
 " Backspace over anything
 set backspace=2
 
