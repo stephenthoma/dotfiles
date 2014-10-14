@@ -4,6 +4,7 @@ unsetopt correct_all
 [[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
 export EDITOR='vim'
+alias tmux="TERM=screen-256color-bce tmux"
 
 source /usr/local/bin/virtualenvwrapper.sh
 source /Users/thoma/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/tmuxinator-0.6.8/completion/tmuxinator.zsh
