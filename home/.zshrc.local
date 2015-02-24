@@ -3,12 +3,19 @@ unsetopt correct_all
 [[ -s $HOME/.shell/aliases ]] && source $HOME/.shell/aliases
 [[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
+bindkey -v
+export KEYTIMEOUT=1
+
 export EDITOR='vim'
 alias tmux="TERM=screen-256color-bce tmux"
 alias tmuxinator='TERM=xterm-256color tmuxinator'
 alias mux='TERM=xterm-256color mux'
 
+source ~/.tmuxinator/tmuxinator.zsh
+
 source /usr/local/bin/virtualenvwrapper.sh
-source /Users/thoma/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/tmuxinator-0.6.8/completion/tmuxinator.zsh
 source /usr/local/opt/autoenv/activate.sh
+
+. `brew --prefix`/etc/profile.d/z.sh
+
 eval "$(rbenv init -)"
