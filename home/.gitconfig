@@ -1,5 +1,5 @@
 [user]
-	name = Stephen Thoma
+	name = sthoma
 	email = sthoma4@gmail.com
 [alias]
 	co = checkout
@@ -20,7 +20,7 @@
 	branch = auto
 [core]
 	excludesfile = ~/.global_gitignore
-	editor = vim 
+	editor = vim
 	autocrlf = input
 [apply]
 	whitespace = nowarn
