@@ -21,6 +21,18 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+" WP to switch to word processing environment
+func! WordProcessorMode()
+    setlocal formatoptions=t1
+    setlocal textwidth=80
+    map j gj
+    map k gk
+    setlocal smartindent
+    setlocal spell spelllang=en_us
+    setlocal noexpandtab
+endfu
+com! WP call WordProcessorMode()
+
 " Toggle auto-indent for pasting
 nnoremap <F3> :set invpaste paste?<CR>
 set pastetoggle=<F3>
