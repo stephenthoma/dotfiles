@@ -1,14 +1,15 @@
-function c() { cd ~/code/$1; }
-function _c() { _files -W ~/code -/; }
-compdef _c c
-
-function h() { cd ~/$1; }
-function _h() { _files -W ~/ -/; }
-compdef _h h
-
+alias c='cd ~/code'
+alias h='cd ~'
 alias lsa='ls -A'
 alias cls='clear; ls'
 
 alias tu='top -o cpu'
 
 alias gs='git status'
+
+alias hf="sudo vim /private/etc/hosts"
+alias vup="cd $HOME/vagrant-box; vagrant up"
+alias vssh="cd $HOME/vagrant-box; vagrant ssh"
+alias vcd="cd $HOME/vagrant-box/Augur"
+
+alias vim="nvim"

@@ -19,7 +19,7 @@
 	status = auto
 	branch = auto
 [core]
-	excludesfile = ~/.global_gitignore
+	excludesfile = /Users/thoma/.global-gitignore
 	editor = vim
 	autocrlf = input
 [apply]

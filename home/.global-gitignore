@@ -35,7 +35,7 @@ Thumbs.db
 
 .svn
 *.swp
-.*.swp
+*.*.swp
 *.swo
 *~
 
