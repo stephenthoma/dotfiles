@@ -8,26 +8,26 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'vim-airline/vim-airline' " statusline widgets
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ctrlpvim/ctrlp.vim' " C-p fuzzy search
+Plugin 'jeetsukumaran/vim-buffergator' " \b to view open buffers
+Plugin 'justinmk/vim-dirvish' " path navigator
+Plugin 'ntpeters/vim-better-whitespace' " makes trailing whitespace red
 
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-fugitive' " git commands within vim
+Plugin 'tpope/vim-git' " syntax files for git
 
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ervandew/supertab'
-Plugin 'tmhedberg/matchit'
+Plugin 'Lokaltog/vim-easymotion' " file navigation \\w \\b
+Plugin 'christoomey/vim-tmux-navigator' " move between vim and tmux seamlessly
+Plugin 'tpope/vim-surround' " surround a word with something ysiw
+Plugin 'scrooloose/nerdcommenter' " easy commenting
+Plugin 'ervandew/supertab' " tab completion
 
-Plugin 'pangloss/vim-javascript'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'groenewege/vim-less'
-Plugin 'w0rp/ale'
+Plugin 'pangloss/vim-javascript' " javascript highlighting
+Plugin 'digitaltoad/vim-pug' " syntax highlighting for pug templates
+
+Plugin 'w0rp/ale' " syntax checking
 call vundle#end()
 
 " Ale linter settings
@@ -36,23 +36,48 @@ let g:ale_fixers = {'javascript': ['eslint']}
 let g:ale_lint_on_text_changed = 'never'
 map <F1> :ALEFix<CR>
 
+" Make it possible to close netrw buffers
+autocmd FileType netrw setl bufhidden=wipe
+
 " Change some colors
 highlight SignColumn ctermbg=237
 highlight Folded ctermbg=237
+highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237 guifg=DarkBlue guibg=LightGrey
 highlight ALEErrorSign guifg=Red guibg=NONE ctermbg=237 ctermfg=203
 highlight ALEError guifg=255 guibg=203 ctermbg=203 ctermfg=255
+highlight Visual ctermbg=239
+highlight Search ctermbg=240
+highlight Pmenu ctermfg=231 ctermbg=239
+highlight airline_tabsel ctermbg=250
 
-" Use ag with CtrlP plugin
+" CtrlP configuration
+let g:ctrlp_working_path_mode = 'r' " Use nearest .git directory as cwd
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
 
 " Do syntax highlighting
 syntax on
 
 " Always display status line
 set laststatus=2
+
+" Airline settings
+let g:airline_powerline_fonts = 1
+let g:airline_theme='minimalist'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" Hide default mode text (ie. -- INSERT -- )
+set noshowmode
+
+" Buffer settings (buffers as tabs)
+set hidden
+nmap <leader>T :enew<cr>
+nmap gt :bnext<CR>
+nmap gT :bprevious<CR>
 
 " Switch off wrapping
 set nowrap
@@ -122,13 +147,8 @@ else
 	set autoindent
 endif
 
-nmap <silent> <special> <F2> :NERDTreeToggle<RETURN>
-
 " Navigate windows without C-w prefix
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Hide default mode text (ie. -- INSERT -- )
-"set noshowmode

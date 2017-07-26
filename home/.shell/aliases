@@ -3,8 +3,7 @@ alias h='cd ~'
 alias lsa='ls -A'
 alias cls='clear; ls'
 
-alias tu='top -o cpu'
-
+alias octal='stat -f %Mp%Lp'
 alias gs='git status'
 
 alias hf="sudo vim /private/etc/hosts"
