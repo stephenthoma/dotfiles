@@ -1,6 +1,3 @@
 dotfiles
 ========
-Install with homesick via:
-
-homesick clone sthoma/dotfiles
-
+Managed via https://github.com/rhysd/dotfiles
