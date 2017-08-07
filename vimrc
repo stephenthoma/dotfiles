@@ -2,33 +2,39 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set packpath^=~/.vim
+packadd minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
+call minpac#add('altercation/vim-colors-solarized')
 
-Plugin 'vim-airline/vim-airline' " statusline widgets
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim' " C-p fuzzy search
-Plugin 'jeetsukumaran/vim-buffergator' " \b to view open buffers
-Plugin 'justinmk/vim-dirvish' " path navigator
-Plugin 'ntpeters/vim-better-whitespace' " makes trailing whitespace red
+call minpac#add('vim-airline/vim-airline') " statusline widgets
+call minpac#add('vim-airline/vim-airline-themes')
+call minpac#add('ctrlpvim/ctrlp.vim') " C-p fuzzy search
+call minpac#add('jeetsukumaran/vim-buffergator') " \b to view open buffers
+call minpac#add('justinmk/vim-dirvish') " path navigator
+call minpac#add('ntpeters/vim-better-whitespace') " makes trailing whitespace red
 
-Plugin 'tpope/vim-fugitive' " git commands within vim
-Plugin 'tpope/vim-git' " syntax files for git
+call minpac#add('tpope/vim-fugitive') " git commands within vim
+call minpac#add('tpope/vim-git') " syntax files for git
 
-Plugin 'Lokaltog/vim-easymotion' " file navigation \\w \\b
-Plugin 'christoomey/vim-tmux-navigator' " move between vim and tmux seamlessly
-Plugin 'tpope/vim-surround' " surround a word with something ysiw
-Plugin 'scrooloose/nerdcommenter' " easy commenting
-Plugin 'ervandew/supertab' " tab completion
+call minpac#add('Lokaltog/vim-easymotion') " file navigation \\w \\b
+call minpac#add('christoomey/vim-tmux-navigator') " move between vim and tmux seamlessly
+call minpac#add('tpope/vim-surround') " surround a word with something ysiw
+call minpac#add('scrooloose/nerdcommenter') " easy commenting
+call minpac#add('ervandew/supertab') " tab completion
 
-Plugin 'pangloss/vim-javascript' " javascript highlighting
-Plugin 'digitaltoad/vim-pug' " syntax highlighting for pug templates
+call minpac#add('pangloss/vim-javascript') " javascript highlighting
+call minpac#add('digitaltoad/vim-pug') " syntax highlighting for pug templates
 
-Plugin 'w0rp/ale' " syntax checking
-call vundle#end()
+call minpac#add('w0rp/ale') " syntax checking
+
+packloadall
+
+" minpac commands
+command! PluginInstall call minpac#update()
+command! PluginClean call minpac#clean()
 
 " Ale linter settings
 let g:ale_linters = {'javascript': ['eslint']}
