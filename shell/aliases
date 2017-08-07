@@ -12,3 +12,6 @@ alias vssh="cd $HOME/vagrant-box; vagrant ssh"
 alias vcd="cd $HOME/vagrant-box/Augur"
 
 alias vim="nvim"
+
+alias python="python3"
+alias pip="pip3"
