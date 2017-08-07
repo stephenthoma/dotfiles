@@ -1,8 +1,9 @@
 {
-  "zshrc" : "~/.zshrc.local",
+  "zshrc" : "~/.zshrc",
   "shell" : "~/.shell",
   "tmux.conf" : "~/.tmux.conf",
   "vimrc" : "~/.vimrc",
+  "init.vim": "~/.config/nvim/",
   "global-gitignore": "~/.global-gitignore",
   "gitconfig" : "~/.gitconfig",
   "irbrc" : "~/.irbrc"
