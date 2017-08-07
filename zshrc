@@ -20,21 +20,21 @@ antigen bundle osx
 antigen bundle z
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen theme stephenthoma/zsh-theme themes/bira
-#antigen theme pure
+#antigen theme stephenthoma/zsh-theme themes/bira
+antigen theme refined
 antigen apply
 
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
 alias tmux="TERM=screen-256color-bce tmux"
-alias tmuxinator='TERM=xterm-256color tmuxinator'
-alias mux='TERM=xterm-256color mux'
 
 alias rmtrash=trash
 
-source ~/.bin/tmuxinator.zsh
-
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 
 . `brew --prefix`/etc/profile.d/z.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/thoma/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/thoma/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/thoma/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/thoma/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
