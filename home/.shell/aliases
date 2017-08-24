@@ -12,3 +12,13 @@ alias vssh="cd $HOME/vagrant-box; vagrant ssh"
 alias vcd="cd $HOME/vagrant-box/Augur"
 
 alias vim="nvim"
+
+function rfind() {
+    if [ -n "$1" ]
+    then
+        [[ -n "$2" ]] && DIRECTORY="$2" || DIRECTORY="./"
+        grep -rniI --exclude-dir="node_modules" --exclude="package-lock.json" "$1" "$DIRECTORY"
+    else
+        echo "rfind <string> [directory]"
+    fi
+}

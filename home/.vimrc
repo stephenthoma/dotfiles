@@ -16,6 +16,7 @@ Plugin 'justinmk/vim-dirvish' " path navigator
 Plugin 'ntpeters/vim-better-whitespace' " makes trailing whitespace red
 
 Plugin 'tpope/vim-fugitive' " git commands within vim
+Plugin 'tpope/vim-rhubarb' " plugin linking fugitive to github (:GBrowse)
 Plugin 'tpope/vim-git' " syntax files for git
 
 Plugin 'Lokaltog/vim-easymotion' " file navigation \\w \\b
