@@ -71,7 +71,6 @@ syntax on
 set laststatus=2
 
 " Airline settings
-let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -116,9 +115,6 @@ com! WP call WordProcessorMode()
 " w!! to force write file
 cmap w!! w !sudo tee % >/dev/null
 
-" Toggle auto-indent for pasting
-nnoremap <F3> :set invpaste paste?<CR>
-set pastetoggle=<F3>
 set showmode
 set incsearch
 
@@ -152,9 +148,3 @@ if has("autocmd")
 else
 	set autoindent
 endif
-
-" Navigate windows without C-w prefix
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
