@@ -9,7 +9,6 @@ alias gs='git status'
 alias hf="sudo vim /private/etc/hosts"
 alias vup="cd $HOME/vagrant-box; vagrant up"
 alias vssh="cd $HOME/vagrant-box; vagrant ssh"
-alias vcd="cd $HOME/vagrant-box/Augur"
 
 alias vim="nvim"
 
