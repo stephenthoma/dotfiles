@@ -2,7 +2,7 @@
 set nocompatible
 filetype off
 
-set packpath^=~/.vim
+"set packpath^=~/.vim
 packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
@@ -71,7 +71,7 @@ syntax on
 set laststatus=2
 
 " Airline settings
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -137,24 +137,18 @@ set mouse=a
 set clipboard=unnamed
 " Only do if compiled with support for autocommands.
 if has("autocmd")
-	" Enable file type detection and language-dependent indentation.
-	filetype plugin indent on
+    " Enable file type detection and language-dependent indentation.
+    filetype plugin indent on
 
-	" Automagically load .vimrc source when saved
-	"autocmd BufWritePost .vimrc source $MYVIMRC
+    " Automagically load .vimrc source when saved
+    "autocmd BufWritePost .vimrc source $MYVIMRC
 
-	" Jump to last known cursor position
-	autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \ 	exe "normal g'\"" |
-        \ endif
+    " Jump to last known cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \    exe "normal g'\"" |
+    \ endif
 
 else
-	set autoindent
+    set autoindent
 endif
-
-" Navigate windows without C-w prefix
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l

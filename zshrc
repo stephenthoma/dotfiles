@@ -7,8 +7,15 @@ bindkey -v
 export KEYTIMEOUT=1
 
 export EDITOR='vim'
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # for nvim 1.7 (ubuntu)
 
-source $(brew --prefix)/share/antigen/antigen.zsh
+if type "$brew" > /dev/null; then
+source $(brew --prefix)/share/antigen/antigen.zsh;
+. `brew --prefix`/etc/profile.d/z.sh;
+else
+source ~/.antigen/antigen.zsh;
+fi
+
 antigen use oh-my-zsh
 
 antigen bundle git
@@ -28,13 +35,5 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 alias rmtrash=trash
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
-. `brew --prefix`/etc/profile.d/z.sh
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/thoma/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/thoma/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/thoma/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/thoma/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source ~/.local/bin/virtualenvwrapper.sh
