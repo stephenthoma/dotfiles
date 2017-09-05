@@ -63,7 +63,6 @@ if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-
 " Do syntax highlighting
 syntax on
 
@@ -71,7 +70,6 @@ syntax on
 set laststatus=2
 
 " Airline settings
-"let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -98,7 +96,6 @@ set foldmethod=syntax
 set foldnestmax=3
 set nofoldenable
 set foldlevel=2
-" js folding
 syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
 " WP to switch to word processing environment
@@ -116,9 +113,6 @@ com! WP call WordProcessorMode()
 " w!! to force write file
 cmap w!! w !sudo tee % >/dev/null
 
-" Toggle auto-indent for pasting
-nnoremap <F3> :set invpaste paste?<CR>
-set pastetoggle=<F3>
 set showmode
 set incsearch
 
@@ -134,7 +128,10 @@ set ruler
 " Scroll Vim with mouse
 set mouse=a
 
-set clipboard=unnamed
+if has("macunix")
+    set clipboard=unnamed
+endif
+
 " Only do if compiled with support for autocommands.
 if has("autocmd")
     " Enable file type detection and language-dependent indentation.

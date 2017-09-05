@@ -9,9 +9,21 @@ alias gs='git status'
 alias hf="sudo vim /private/etc/hosts"
 alias vup="cd $HOME/vagrant-box; vagrant up"
 alias vssh="cd $HOME/vagrant-box; vagrant ssh"
-alias vcd="cd $HOME/vagrant-box/Augur"
 
 alias vim="nvim"
 
 alias python="python3"
 alias pip="pip3"
+
+function gmosh() {
+    if [ -n "$1" ]
+    then
+        USER=$(echo "$1" | cut -f1 -d @)
+        INSTANCE=$(echo "$1" | cut -f2 -d @)
+        PIP=$(gcloud compute instances list --filter="$INSTANCE" --limit=1  --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
+        mosh "$USER"@"$PIP" --ssh="ssh -i ~/.ssh/google_compute_engine"
+    else
+        echo "mosh into gcloud instances"
+        echo "gmosh user@instance"
+    fi
+}
