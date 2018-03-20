@@ -28,9 +28,6 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 alias rmtrash=trash
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
 . `brew --prefix`/etc/profile.d/z.sh
 
 # The next line updates PATH for the Google Cloud SDK.

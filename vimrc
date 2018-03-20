@@ -27,6 +27,7 @@ call minpac#add('ervandew/supertab') " tab completion
 
 call minpac#add('pangloss/vim-javascript') " javascript highlighting
 call minpac#add('digitaltoad/vim-pug') " syntax highlighting for pug templates
+call minpac#add('davidhalter/jedi-vim') " python helps
 
 call minpac#add('w0rp/ale') " syntax checking
 
@@ -36,11 +37,18 @@ packloadall
 command! PluginInstall call minpac#update()
 command! PluginClean call minpac#clean()
 
+" Disable jedi completion
+let g:jedi#completions_enabled = 0
+
 " Ale linter settings
-let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['pylint']}
+let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'python': ['yapf', 'trim_whitespace', 'remove_trailing_lines', 'isort']}
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_yapf_use_global = 1
 map <F1> :ALEFix<CR>
+
+" Fix syntax highlighting
+map <F2> :syntax sync fromstart<CR>
 
 " Make it possible to close netrw buffers
 autocmd FileType netrw setl bufhidden=wipe
@@ -85,18 +93,19 @@ nmap gT :bprevious<CR>
 
 " Switch off wrapping
 set nowrap
-filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
 " Code folding
-set foldmethod=syntax
 set foldnestmax=3
 set nofoldenable
-set foldlevel=2
-syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+set foldlevel=1
+set foldmethod=syntax
+nnoremap <Space> zA
+autocmd FileType javascript syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+autocmd FileType python set foldmethod=indent
 
 " WP to switch to word processing environment
 func! WordProcessorMode()
@@ -132,20 +141,25 @@ if has("macunix")
     set clipboard=unnamed
 endif
 
-" Only do if compiled with support for autocommands.
-if has("autocmd")
-	" Enable file type detection and language-dependent indentation.
-	filetype plugin indent on
-
-	" Automagically load .vimrc source when saved
-	"autocmd BufWritePost .vimrc source $MYVIMRC
-
-	" Jump to last known cursor position
-	autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \ 	exe "normal g'\"" |
-        \ endif
-
-else
-	set autoindent
+" Keep undo history across sessions by storing it in a file
+if has("persistent_undo")
+    let undo_dir = expand("$HOME/.vim/undo_dir")
+    if !isdirectory(undo_dir)
+        call mkdir(undo_dir, "", 0700)
+    endif
+    set undodir=$HOME/.vim/undo_dir
+    set undofile
 endif
+
+" Enable file type detection and language-dependent indentation.
+filetype plugin indent on
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+
+" Automagically load .vimrc source when saved
+"autocmd BufWritePost .vimrc source $MYVIMRC
+
+" Jump to last known cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \ 	exe "normal g'\"" |
+    \ endif
