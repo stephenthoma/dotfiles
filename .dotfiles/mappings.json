@@ -6,5 +6,6 @@
   "init.vim": "~/.config/nvim/",
   "global-gitignore": "~/.global-gitignore",
   "gitconfig" : "~/.gitconfig",
-  "irbrc" : "~/.irbrc"
+  "irbrc" : "~/.irbrc",
+  "alacritty.yml": "~/.config/alacritty/"
 }
