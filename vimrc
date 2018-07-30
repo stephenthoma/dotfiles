@@ -26,8 +26,10 @@ call minpac#add('scrooloose/nerdcommenter') " easy commenting
 call minpac#add('ervandew/supertab') " tab completion
 
 call minpac#add('pangloss/vim-javascript') " javascript highlighting
+call minpac#add('/mxw/vim-jsx') " jsx highlighting
 call minpac#add('digitaltoad/vim-pug') " syntax highlighting for pug templates
-call minpac#add('davidhalter/jedi-vim') " python helps
+
+call minpac#add('aquach/vim-http-client') " REST client
 
 call minpac#add('w0rp/ale') " syntax checking
 
@@ -36,16 +38,20 @@ packloadall
 " minpac commands
 command! PluginInstall call minpac#update()
 command! PluginClean call minpac#clean()
-
-" Disable jedi completion
-let g:jedi#completions_enabled = 0
+command! PluginList echo minpac#getpackages()
 
 " Ale linter settings
 let g:ale_linters = {'javascript': ['eslint'], 'python': ['pylint']}
-let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'python': ['yapf', 'trim_whitespace', 'remove_trailing_lines', 'isort']}
+let g:ale_fixers = {'javascript': ['eslint'], 'python': ['yapf', 'trim_whitespace', 'remove_trailing_lines', 'isort']}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_python_yapf_use_global = 1
 map <F1> :ALEFix<CR>
+
+" VIM http client settings
+let g:http_client_result_vsplit = 0
+let g:http_client_bind_hotkey = 0
+let g:http_client_focus_output_window = 0
+nnoremap <Leader>r :HTTPClientDoRequest<cr>
 
 " Fix syntax highlighting
 map <F2> :syntax sync fromstart<CR>
