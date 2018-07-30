@@ -18,7 +18,7 @@ alias python27="/usr/bin/python"
 alias python="python3"
 alias pip="pip3"
 
-alias manage="python /Users/thoma/code/unspun/perfectfit/fit/manage.py"
+alias blender="/Applications/Blender/blender.app/Contents/MacOS/blender"
 
 alias tunnel="ssh -i ~/.ssh/google_compute_engine -D 8080 -C -q -N thoma@35.188.111.156"
 function switchmac() {
