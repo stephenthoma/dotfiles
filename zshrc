@@ -7,6 +7,7 @@ bindkey -v
 export KEYTIMEOUT=1
 
 export EDITOR='vim'
+export PGDATA=/usr/local/var/postgres
 
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
@@ -35,3 +36,8 @@ if [ -f $HOME'/google-cloud-sdk/path.zsh.inc' ]; then source $HOME'/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f $HOME'/google-cloud-sdk/completion.zsh.inc' ]; then source $HOME'/google-cloud-sdk/completion.zsh.inc'; fi
+
+export HOUSTON_ENV=development
+export BLENDER_EXC=/Applications/Blender/blender.app/Contents/MacOS/blender
+export PYTHONPATH=/Users/thoma/code/unspun/perfectfit/fit/blender
+export PGDATA=/usr/local/var/postgres
