@@ -7,5 +7,5 @@
   "global-gitignore": "~/.global-gitignore",
   "gitconfig" : "~/.gitconfig",
   "irbrc" : "~/.irbrc",
-  "alacritty.yml": "~/.config/alacritty/"
+  "alacritty.yml": "~/.config/alacritty/alacritty.yml"
 }
