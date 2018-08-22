@@ -42,9 +42,10 @@ command! PluginList echo minpac#getpackages()
 
 " Ale linter settings
 let g:ale_linters = {'javascript': ['eslint'], 'python': ['pylint']}
-let g:ale_fixers = {'javascript': ['eslint'], 'python': ['yapf', 'trim_whitespace', 'remove_trailing_lines', 'isort']}
+let g:ale_fixers = {'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_python_yapf_use_global = 1
+let g:ale_fix_on_save = 1
+let g:ale_python_black_options = '-l 100'
 map <F1> :ALEFix<CR>
 
 " VIM http client settings
@@ -139,6 +140,10 @@ imap jj <Esc>
 
 " Always show cursor position
 set ruler
+
+" Macro stuff
+nnoremap Q @@
+set lazyredraw
 
 " Scroll Vim with mouse
 set mouse=a
