@@ -7,7 +7,6 @@ bindkey -v
 export KEYTIMEOUT=1
 
 export EDITOR='vim'
-export PGDATA=/usr/local/var/postgres
 
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
