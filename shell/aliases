@@ -5,6 +5,7 @@ alias cls='clear; ls'
 
 alias octal='stat -f %Mp%Lp'
 alias gs='git status'
+alias gpu='git push -u'
 
 alias hf="sudo vim /private/etc/hosts"
 alias vup="cd $HOME/vagrant-box; vagrant up"
@@ -44,4 +45,27 @@ function workon() {
 
 function convert() {
     ffmpeg -i "$1" -strict experimental -f mp4 -vcodec libx264 -acodec aac -ab 160000 -ac 2 -preset slow -crf 22 ./out/"$1"
+}
+
+function gda() {
+    if [ -n "$1" ]
+    then
+        git diff "$1"
+        read "response?git add $1? (y/N) "
+        if [[ $response =~ [yY](es)* ]]
+        then
+            git add "$1"
+        fi
+    else
+        echo "Must pass a file path"
+    fi
+}
+
+function rfr() { # Recursive find and replace using the-silver-searcher
+    if [ $# -ne 2 ]
+    then
+        echo "Usage: rfr <find_str> <repl_str>"
+    else
+        ag "$1" -l0 | xargs -0 sed -i "" "s/$1/$2/g"
+    fi
 }
