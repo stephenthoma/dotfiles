@@ -7,13 +7,17 @@ packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('dikiaap/minimalist') " colorscheme
 
 call minpac#add('vim-airline/vim-airline') " statusline widgets
 call minpac#add('vim-airline/vim-airline-themes')
+
 call minpac#add('ctrlpvim/ctrlp.vim') " C-p fuzzy search
+call minpac#add('majutsushi/tagbar') " \t to view ctags
+call minpac#add('ludovicchabant/vim-gutentags') " tag management
+
 call minpac#add('jeetsukumaran/vim-buffergator') " \b to view open buffers
-call minpac#add('justinmk/vim-dirvish') " path navigator
+call minpac#add('justinmk/vim-dirvish') " path navigator (trigger via '-')
 call minpac#add('ntpeters/vim-better-whitespace') " makes trailing whitespace red
 
 call minpac#add('tpope/vim-fugitive') " git commands within vim
@@ -21,13 +25,14 @@ call minpac#add('tpope/vim-git') " syntax files for git
 
 call minpac#add('Lokaltog/vim-easymotion') " file navigation \\w \\b
 call minpac#add('christoomey/vim-tmux-navigator') " move between vim and tmux seamlessly
-call minpac#add('tpope/vim-surround') " surround a word with something ysiw
+call minpac#add('tpope/vim-surround') " surround a word with something (ex: ysiw)
 call minpac#add('scrooloose/nerdcommenter') " easy commenting
 call minpac#add('ervandew/supertab') " tab completion
 
+call minpac#add('tmhedberg/SimpylFold') " Python code folding
 call minpac#add('pangloss/vim-javascript') " javascript highlighting
-call minpac#add('/mxw/vim-jsx') " jsx highlighting
-call minpac#add('digitaltoad/vim-pug') " syntax highlighting for pug templates
+call minpac#add('mxw/vim-jsx') " jsx highlighting
+"call minpac#add('digitaltoad/vim-pug') " syntax highlighting for pug templates
 
 call minpac#add('aquach/vim-http-client') " REST client
 
@@ -40,12 +45,45 @@ command! PluginInstall call minpac#update()
 command! PluginClean call minpac#clean()
 command! PluginList echo minpac#getpackages()
 
+" 256 colors
+set t_Co=256
+
+" Always display status line
+set laststatus=2
+
+" Shorten pause when leaving insert mode
+set ttimeoutlen=50
+
+" Ignore things
+set wildmenu
+set wildmode=longest:full,full
+set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/deps/node/*,*/_site/*
+
+" Airline settings
+let g:airline_theme='minimalist'
+let g:airline_powerline_fonts = 1
+let g:airline_minimalist_showmod = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline#extensions#ale = 1
+let g:airline#extensions#ale#error_symbol = '⨉ '
+let g:airline#extensions#ale#warning_symbol = '⚠ '
+
 " Ale linter settings
 let g:ale_linters = {'javascript': ['eslint'], 'python': ['pylint']}
-let g:ale_fixers = {'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
+let g:ale_fixers = {'cpp': ['clang-format'], 'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
+
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_pylint_change_directory = 0
 let g:ale_fix_on_save = 1
+
+let g:ale_sign_error = '⨉'
+let g:ale_sign_warning = '∆'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+
 let g:ale_python_black_options = '-l 100'
+let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
 map <F1> :ALEFix<CR>
 
 " VIM http client settings
@@ -63,9 +101,10 @@ autocmd FileType netrw setl bufhidden=wipe
 " Change some colors
 highlight SignColumn ctermbg=237
 highlight Folded ctermbg=237
-highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237 guifg=DarkBlue guibg=LightGrey
-highlight ALEErrorSign guifg=Red guibg=NONE ctermbg=237 ctermfg=203
-highlight ALEError guifg=255 guibg=203 ctermbg=203 ctermfg=255
+highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237
+highlight ALEErrorSign ctermbg=237 ctermfg=203
+highlight ALEError ctermbg=203 ctermfg=255
+highlight ALEWarningSign ctermbg=237
 highlight Visual ctermbg=239
 highlight Search ctermbg=240
 highlight Pmenu ctermfg=231 ctermbg=239
@@ -81,14 +120,6 @@ endif
 " Do syntax highlighting
 syntax on
 
-" Always display status line
-set laststatus=2
-
-" Airline settings
-let g:airline_theme='minimalist'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-
 " Hide default mode text (ie. -- INSERT -- )
 set noshowmode
 
@@ -97,6 +128,13 @@ set hidden
 nmap <leader>T :enew<cr>
 nmap gt :bnext<CR>
 nmap gT :bprevious<CR>
+
+" tags
+nmap <leader>t :TagbarToggle<cr>
+let g:gutentags_project_root = ['setup.py', 'package.json']
+let g:gutentags_cache_dir = '/Users/thoma/.tags'
+map gD <C-]>
+
 
 " Switch off wrapping
 set nowrap
@@ -113,6 +151,7 @@ set foldmethod=syntax
 nnoremap <Space> zA
 autocmd FileType javascript syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 autocmd FileType python set foldmethod=indent
+let g:SimpylFold_docstring_preview = 1
 
 " WP to switch to word processing environment
 func! WordProcessorMode()
@@ -129,7 +168,6 @@ com! WP call WordProcessorMode()
 " w!! to force write file
 cmap w!! w !sudo tee % >/dev/null
 
-set showmode
 set incsearch
 
 " Backspace over anything
@@ -165,6 +203,7 @@ endif
 " Enable file type detection and language-dependent indentation.
 filetype plugin indent on
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd Filetype cpp setlocal shiftwidth=2 tabstop=2
 
 " Automagically load .vimrc source when saved
 "autocmd BufWritePost .vimrc source $MYVIMRC
