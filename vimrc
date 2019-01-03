@@ -45,7 +45,8 @@ command! PluginInstall call minpac#update()
 command! PluginClean call minpac#clean()
 command! PluginList echo minpac#getpackages()
 
-" 256 colors
+" 256 colors, enable colorscheme
+colorscheme minimalist
 set t_Co=256
 
 " Always display status line
@@ -61,10 +62,12 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 
 " Airline settings
 let g:airline_theme='minimalist'
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 let g:airline_minimalist_showmod = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#ignore_bufadd_pat = 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify|!'
 
 let g:airline#extensions#ale = 1
 let g:airline#extensions#ale#error_symbol = '⨉ '
@@ -136,7 +139,7 @@ let g:gutentags_cache_dir = '/Users/thoma/.tags'
 map gD <C-]>
 
 
-" Switch off wrapping
+" Switch off wrapping, proper indentation
 set nowrap
 set tabstop=4
 set shiftwidth=4
