@@ -1,4 +1,5 @@
 {
+  "zshenv" : "~/.zshenv",
   "zshrc" : "~/.zshrc",
   "shell" : "~/.shell",
   "tmux.conf" : "~/.tmux.conf",
