@@ -20,7 +20,7 @@
 	branch = auto
 [core]
 	excludesfile = ~/.global-gitignore
-	editor = vim
+	editor = nvim
 	autocrlf = input
 [apply]
 	whitespace = nowarn
