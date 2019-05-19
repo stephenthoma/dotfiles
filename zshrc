@@ -3,11 +3,6 @@ unsetopt correct_all
 [[ -s $HOME/.shell/aliases ]] && source $HOME/.shell/aliases
 [[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
-bindkey -v
-export KEYTIMEOUT=1
-
-export EDITOR='vim'
-
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 
@@ -23,6 +18,11 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 #antigen theme stephenthoma/zsh-theme themes/bira
 antigen theme refined
 antigen apply
+
+bindkey -v
+export KEYTIMEOUT=1
+
+export EDITOR='nvim'
 
 alias tmux="TERM=screen-256color-bce tmux"
 
@@ -41,3 +41,5 @@ export BLENDER_EXC=/Applications/Blender/blender.app/Contents/MacOS/blender
 export SPARROW_EXC=/Users/thoma/code/unspun/perfectfit/sparrow/sparrow
 export PYTHONPATH=/Users/thoma/code/unspun/perfectfit/fit/blender/src/blender
 export PGDATA=/usr/local/var/postgres
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/thoma/.dev-service-account.json
+export GCLOUD_PROJECT=unspun-sandbox

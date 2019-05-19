@@ -32,3 +32,5 @@
 	default = simple
 [credential]
 	helper = osxkeychain
+[oh-my-zsh]
+	hide-status = 0
