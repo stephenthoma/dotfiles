@@ -1,7 +1,6 @@
 " Use Vim settings rather than Vi
 set nocompatible
 
-
 " Minpac setup ----------
 set packpath^=~/.vim
 packadd minpac
@@ -14,7 +13,7 @@ call minpac#add('vim-airline/vim-airline') " statusline widgets
 call minpac#add('vim-airline/vim-airline-themes')
 
 call minpac#add('ctrlpvim/ctrlp.vim') " C-p fuzzy search
-call minpac#add('ludovicchabant/vim-gutentags') " tag management
+call minpac#add('jsfaint/gen_tags.vim') " Tag management
 
 call minpac#add('jeetsukumaran/vim-buffergator') " \b to view open buffers
 call minpac#add('justinmk/vim-dirvish') " path navigator (trigger via '-')
@@ -29,8 +28,11 @@ call minpac#add('tpope/vim-surround') " surround a word with something (ex: ysiw
 call minpac#add('scrooloose/nerdcommenter') " easy commenting
 
 call minpac#add('roxma/nvim-yarp')
+call minpac#add('davidhalter/jedi-vim')
 call minpac#add('ncm2/ncm2') " tab completion
 call minpac#add('ncm2/ncm2-jedi') " python completion
+call minpac#add('ncm2/ncm2-bufword') " completion from current buffer
+call minpac#add('ncm2/ncm2-gtags') " Tag completion
 call minpac#add('ncm2/ncm2-tern', {'do': 'npm install'}) " javascript completion
 
 
@@ -54,7 +56,9 @@ set laststatus=2 " Always display status line
 set ttimeoutlen=50 " Shorten pause when leaving insert mode
 set noshowmode " Hide default mode text (ie. -- INSERT -- )
 set incsearch " Perform search as you type
+set smartcase " Easier searching
 set backspace=2 " Backspace over anything
+set scrolloff=3 " Keep 3 lines between cursor and bottom
 set lazyredraw
 set ruler " Always show cursor position
 set mouse=a " Scroll Vim with mouse
@@ -152,6 +156,9 @@ com! WP call WordProcessorMode()
 
 " Plugin configuration ----------
 " ncm2 settings
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1,1]]
+let g:ncm2#matcher = 'substrfuzzy'
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
@@ -160,7 +167,7 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"  'on_complete': ['ncm2#on_complete#delay', 180,
+"  'on_complete': ['ncm3#on_complete#delay', 180,
 "               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
 au User Ncm2Plugin call ncm2#register_source({
         \ 'name' : 'css',
@@ -173,6 +180,19 @@ au User Ncm2Plugin call ncm2#register_source({
         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
         \ })
 
+" Jedi settings
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_delay = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
+let g:jedi#enable_speed_debugging=0
+
 
 " Airline settings
 let g:airline_theme='minimalist'
@@ -180,6 +200,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_minimalist_showmod = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#ignore_bufadd_pat = 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify|__doc__|!'
 
 let g:airline#extensions#ale = 1
 let g:airline#extensions#ale#error_symbol = '⨉ '
@@ -215,10 +236,10 @@ if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-" Gutentags settings
-let g:gutentags_project_root = ['setup.py', 'package.json']
-let g:gutentags_cache_dir = '/Users/thoma/.tags'
+" Tag settings
+let g:gen_tags#use_cache_dir = 1
 map gD <C-]>
 
 " Make it possible to close netrw buffers
 autocmd FileType netrw setl bufhidden=wipe
+colorscheme minimalist
