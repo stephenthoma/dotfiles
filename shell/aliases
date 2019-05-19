@@ -15,7 +15,6 @@ alias beep="printf '\a'"
 
 alias vim="nvim"
 
-alias python27="/usr/bin/python"
 alias python="python3"
 alias pip="pip3"
 
