@@ -13,11 +13,10 @@ call minpac#add('vim-airline/vim-airline') " statusline widgets
 call minpac#add('vim-airline/vim-airline-themes')
 
 call minpac#add('ctrlpvim/ctrlp.vim') " C-p fuzzy search
-call minpac#add('jsfaint/gen_tags.vim') " Tag management
 
 call minpac#add('jeetsukumaran/vim-buffergator') " \b to view open buffers
+call minpac#add('mbbill/undotree')
 call minpac#add('justinmk/vim-dirvish') " path navigator (trigger via '-')
-call minpac#add('ntpeters/vim-better-whitespace') " makes trailing whitespace red
 
 call minpac#add('tpope/vim-fugitive') " git commands within vim
 call minpac#add('tpope/vim-git') " syntax files for git
@@ -27,21 +26,13 @@ call minpac#add('christoomey/vim-tmux-navigator') " move between vim and tmux se
 call minpac#add('tpope/vim-surround') " surround a word with something (ex: ysiw)
 call minpac#add('scrooloose/nerdcommenter') " easy commenting
 
-call minpac#add('roxma/nvim-yarp')
-call minpac#add('davidhalter/jedi-vim')
-call minpac#add('ncm2/ncm2') " tab completion
-call minpac#add('ncm2/ncm2-jedi') " python completion
-call minpac#add('ncm2/ncm2-bufword') " completion from current buffer
-call minpac#add('ncm2/ncm2-gtags') " Tag completion
-call minpac#add('ncm2/ncm2-tern', {'do': 'npm install'}) " javascript completion
-
-
 call minpac#add('tmhedberg/SimpylFold') " Python code folding
 call minpac#add('pangloss/vim-javascript') " javascript highlighting
 call minpac#add('mxw/vim-jsx') " jsx highlighting
 
 call minpac#add('aquach/vim-http-client') " REST client
 
+let g:ale_completion_enabled = 1 " Must be called before ale is loaded
 call minpac#add('w0rp/ale') " syntax checking
 
 packloadall
@@ -59,7 +50,8 @@ set incsearch " Perform search as you type
 set smartcase " Easier searching
 set backspace=2 " Backspace over anything
 set scrolloff=3 " Keep 3 lines between cursor and bottom
-set lazyredraw
+set lazyredraw " Don't redraw screen when running macros
+set inccommand=nosplit " Nvim only - show realtimes changes of ex command
 set ruler " Always show cursor position
 set mouse=a " Scroll Vim with mouse
 let g:python3_host_prog = '/Users/thoma/.virtualenvs/nvim/bin/python3'
@@ -67,6 +59,11 @@ let g:python3_host_prog = '/Users/thoma/.virtualenvs/nvim/bin/python3'
 if has("macunix")
     set clipboard=unnamed
 endif
+
+" Completion
+set completeopt=menu,menuone,longest,preview,noselect,noinsert
+set splitbelow " Put preview window at bottom of screen
+set pumheight=8 " Set max number of completion results to show
 
 " Keep undo history across sessions by storing it in a file
 if has("persistent_undo")
@@ -94,6 +91,8 @@ set hidden
 nmap <leader>T :enew<cr>
 nmap gt :bnext<CR>
 nmap gT :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " Switch off wrapping
 set nowrap
@@ -131,67 +130,38 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd Filetype cpp setlocal shiftwidth=2 tabstop=2
 
 " Mapped commands ----------
+let mapleader="\<Space>"
 map <F2> :syntax sync fromstart<CR>
-
+nnoremap <F5> :UndotreeToggle<cr>
 " w!! to force write file
 cmap w!! w !sudo tee % >/dev/null
-
 " jj to leave Insert mode
 imap jj <Esc>
-
 " Shift-Q to run last macro
 nnoremap Q @@
 
-" WP to switch to word processing environment
-func! WordProcessorMode()
-    setlocal formatoptions=t1
-    setlocal textwidth=80
-    map j gj
-    map k gk
-    setlocal smartindent
-    setlocal spell spelllang=en_us
-    setlocal noexpandtab
-endfu
-com! WP call WordProcessorMode()
-
 " Plugin configuration ----------
-" ncm2 settings
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1,1]]
-let g:ncm2#matcher = 'substrfuzzy'
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-inoremap <c-c> <ESC>
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" Ale settings
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"  'on_complete': ['ncm3#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
+let g:ale_sign_error = '◉'
+let g:ale_sign_warning = '◉'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 
-" Jedi settings
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-let g:jedi#show_call_signatures_delay = 0
-let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#show_call_signatures_modes = 'i'  " ni = also in normal mode
-let g:jedi#enable_speed_debugging=0
+let g:ale_python_black_options = '-l 100'
+let g:ale_python_pylint_change_directory = 0
+let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
+
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['pyls', 'pylint']}
+let g:ale_fixers = {'cpp': ['clang-format'], 'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
+
+map <F1> :ALEFix<CR>
+nmap <silent> gD :ALEGoToDefinition<CR>
+nmap <silent> gR :ALEFindReferences<CR>
+nmap <leader>n :ALENextWrap<CR>
+nmap <leader>N :ALEPreviousWrap<CR>
+nnoremap <silent> K :ALEHover<CR>
 
 
 " Airline settings
@@ -206,22 +176,6 @@ let g:airline#extensions#ale = 1
 let g:airline#extensions#ale#error_symbol = '⨉ '
 let g:airline#extensions#ale#warning_symbol = '⚠ '
 
-" Ale settings
-let g:ale_linters = {'javascript': ['eslint'], 'python': ['pylint']}
-let g:ale_fixers = {'cpp': ['clang-format'], 'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
-let g:ale_completion_enabled = 0
-
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_python_pylint_change_directory = 0
-let g:ale_fix_on_save = 1
-
-let g:ale_sign_error = '⨉'
-let g:ale_sign_warning = '∆'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
-
-let g:ale_python_black_options = '-l 100'
-let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
-map <F1> :ALEFix<CR>
 
 " VIM http client settings
 let g:http_client_result_vsplit = 0
@@ -235,10 +189,6 @@ if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
-" Tag settings
-let g:gen_tags#use_cache_dir = 1
-map gD <C-]>
 
 " Make it possible to close netrw buffers
 autocmd FileType netrw setl bufhidden=wipe
