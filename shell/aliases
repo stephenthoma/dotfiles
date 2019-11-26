@@ -5,7 +5,7 @@ alias cls='clear; ls'
 
 alias octal='stat -f %Mp%Lp'
 alias gs='git status'
-alias gpu='git push -u'
+alias gpu='git push --set-upstream origin $(git symbolic-ref --short -q HEAD)'
 
 alias hf="sudo vim /private/etc/hosts"
 alias vup="cd $HOME/vagrant-box; vagrant up"
