@@ -111,17 +111,6 @@ autocmd FileType javascript syntax region foldBraces start=/{/ end=/}/ transpare
 autocmd FileType python set foldmethod=indent
 let g:SimpylFold_docstring_preview = 1
 
-" Colors ----------
-highlight SignColumn ctermbg=237
-highlight Folded ctermbg=237
-highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237
-highlight ALEErrorSign ctermbg=237 ctermfg=203
-highlight ALEError ctermbg=203 ctermfg=255
-highlight ALEWarningSign ctermbg=237
-highlight Visual ctermbg=239
-highlight Search ctermbg=240
-highlight Pmenu ctermfg=231 ctermbg=239
-highlight airline_tabsel ctermbg=250
 
 " Syntax + indentation ----------
 syntax on
@@ -194,3 +183,17 @@ endif
 " Make it possible to close netrw buffers
 autocmd FileType netrw setl bufhidden=wipe
 colorscheme minimalist
+
+colors
+" Colors ----------
+highlight SignColumn ctermbg=237
+highlight Folded ctermbg=237
+highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237
+highlight ALEErrorSign ctermbg=237 ctermfg=203
+highlight ALEError ctermbg=203 ctermfg=255
+highlight ALEWarningSign ctermbg=237
+highlight Visual ctermbg=239
+highlight Search ctermbg=240
+highlight Pmenu ctermbg=239
+highlight PmenuSel ctermbg=242
+highlight airline_tabsel ctermbg=250
