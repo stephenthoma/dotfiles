@@ -153,6 +153,7 @@ let g:ale_python_black_options = '-l 100'
 let g:ale_python_pylint_change_directory = 0
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
 
+" I've only been able to get pyls + ale completion working with pyls installed in the project virtualenv
 let g:ale_linters = {'javascript': ['eslint'], 'python': ['pyls', 'pylint']}
 let g:ale_fixers = {'cpp': ['clang-format'], 'javascript': ['eslint'], 'python': ['black', 'trim_whitespace', 'remove_trailing_lines']}
 
