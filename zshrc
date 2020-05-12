@@ -6,7 +6,6 @@ unsetopt correct_all
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 
-antigen bundle git
 antigen bundle command-not-found
 antigen bundle brew
 antigen bundle vi-mode
