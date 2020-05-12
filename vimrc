@@ -184,8 +184,19 @@ endif
 autocmd FileType netrw setl bufhidden=wipe
 colorscheme minimalist
 
+func! WordProcessorMode()
+    setlocal formatoptions=t1
+    setlocal textwidth=80
+    map j gj
+    map k gk
+    setlocal smartindent
+    setlocal noexpandtab
+endfu
+com! WP call WordProcessorMode()
+
 colors
-" Colors ----------
+" Colors (must be defined after colorscheme) ----------
+highlight Comment cterm=italic
 highlight SignColumn ctermbg=237
 highlight Folded ctermbg=237
 highlight StatusLine cterm=BOLD ctermfg=4 ctermbg=237
@@ -196,4 +207,4 @@ highlight Visual ctermbg=239
 highlight Search ctermbg=240
 highlight Pmenu ctermbg=239
 highlight PmenuSel ctermbg=242
-highlight airline_tabsel ctermbg=250
+highlight airline_tabsel ctermbg=240
