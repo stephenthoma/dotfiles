@@ -1,6 +1,6 @@
 [user]
 	name = stephenthoma
-	email = stephen@stephenthoma.com
+	email = stephen@thoma.io
 [alias]
 	co = checkout
 	rb = rebase
@@ -14,6 +14,7 @@
     compactionHeuristic = true
     indentHeuristic = true
     algorithm = patience
+	tool = vimdiff
 [color]
 	diff = auto
 	status = auto
@@ -32,3 +33,5 @@
 	default = simple
 [credential]
 	helper = osxkeychain
+[merge]
+	tool = vimdiff
