@@ -1,5 +1,6 @@
 alias c='cd ~/code'
 alias h='cd ~'
+alias gh='cd $(git rev-parse --show-toplevel)'
 alias lsa='ls -A'
 alias cls='clear; ls'
 
@@ -25,11 +26,13 @@ alias python="python3"
 alias pip="pip3"
 
 alias blender="/Applications/Blender/blender.app/Contents/MacOS/blender"
+alias vstitcher="/Applications/Browzwear/VStitcher\ 2020\ January\ Edition.app/Contents/MacOS/VStitcher 2>vstitcher_out.log"
 
 alias tunnel="ssh -i ~/.ssh/google_compute_engine -D 8080 -C -q -N thoma@35.188.111.156"
 function switchmac() {
     sudo ifconfig en0 ether "$1"
 }
+
 
 function gmosh() {
     if [ -n "$1" ]
