@@ -1,7 +1,5 @@
 unsetopt correct_all
 
-[[ -s $HOME/.shell/aliases ]] && source $HOME/.shell/aliases
-[[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
@@ -17,6 +15,9 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 #antigen theme stephenthoma/zsh-theme themes/bira
 antigen theme refined
 antigen apply
+
+[[ -s $HOME/.shell/aliases ]] && source $HOME/.shell/aliases
+[[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
 bindkey -v
 export KEYTIMEOUT=1
