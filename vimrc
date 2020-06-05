@@ -26,7 +26,7 @@ call minpac#add('christoomey/vim-tmux-navigator') " move between vim and tmux se
 call minpac#add('tpope/vim-surround') " surround a word with something (ex: ysiw)
 call minpac#add('scrooloose/nerdcommenter') " easy commenting
 
-call minpac#add('tmhedberg/SimpylFold') " Python code folding
+call minpac#add('Konfekt/FastFold') " Better folding
 call minpac#add('pangloss/vim-javascript') " javascript highlighting
 call minpac#add('mxw/vim-jsx') " jsx highlighting
 
@@ -106,10 +106,8 @@ set foldnestmax=3
 set nofoldenable
 set foldlevel=1
 set foldmethod=syntax
-nnoremap <Space> zA
 autocmd FileType javascript syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 autocmd FileType python set foldmethod=indent
-let g:SimpylFold_docstring_preview = 1
 
 
 " Syntax + indentation ----------
@@ -120,6 +118,7 @@ autocmd Filetype cpp setlocal shiftwidth=2 tabstop=2
 
 " Mapped commands ----------
 let mapleader="\<Space>"
+nnoremap vv za
 map <F2> :syntax sync fromstart<CR>
 nnoremap <F5> :UndotreeToggle<cr>
 " w!! to force write file
