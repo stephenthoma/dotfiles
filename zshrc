@@ -6,7 +6,8 @@ antigen use oh-my-zsh
 
 antigen bundle command-not-found
 antigen bundle brew
-antigen bundle vi-mode
+antigen bundle jeffreytse/zsh-vi-mode
+antigen bundle buonomo/yarn-completion
 antigen bundle tmux
 antigen bundle osx
 antigen bundle z
@@ -19,6 +20,7 @@ antigen apply
 [[ -s $HOME/.shell/aliases ]] && source $HOME/.shell/aliases
 [[ -s $HOME/.shell/paths ]] && source $HOME/.shell/paths
 
+bindkey "ç" fzf-cd-widget
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -43,3 +45,13 @@ export PYTHONPATH=/Users/thoma/code/unspun/perfectfit/fit/blender/src/blender
 export PGDATA=/usr/local/var/postgres
 export GOOGLE_APPLICATION_CREDENTIALS=/Users/thoma/.dev-service-account.json
 export GCLOUD_PROJECT=unspun-sandbox
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export HOMEBREW_AUTO_UPDATE_SECS=604800
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

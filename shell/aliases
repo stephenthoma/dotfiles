@@ -1,8 +1,11 @@
-alias c='cd ~/code'
 alias h='cd ~'
-alias gh='cd $(git rev-parse --show-toplevel)'
 alias lsa='ls -A'
 alias cls='clear; ls'
+alias gr='cd $(git rev-parse --show-toplevel)'
+alias python-history='cat ~/.python_history'
+
+alias day='/Users/thoma/Library/Python/3.9/bin/alacritty-colorscheme -V apply /Users/thoma/code/dotfiles/dayfox_alacritty.yml 1>&-'
+alias night='/Users/thoma/Library/Python/3.9/bin/alacritty-colorscheme -V apply /Users/thoma/code/dotfiles/nightfox_alacritty.yml 1>&-'
 
 alias octal='stat -f %Mp%Lp'
 alias gs='git status'
@@ -11,8 +14,10 @@ alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+alias grh='git reset head'
 alias gpl='git pull'
-alias gpr='hub pull-request'
+alias gpr='gh pr create'
+alias grs='git restore --staged'
 
 alias hf="sudo vim /private/etc/hosts"
 alias vup="cd $HOME/vagrant-box; vagrant up"
@@ -26,7 +31,7 @@ alias python="python3"
 alias pip="pip3"
 
 alias blender="/Applications/Blender/blender.app/Contents/MacOS/blender"
-alias vstitcher="/Applications/Browzwear/VStitcher\ 2020\ January\ Edition.app/Contents/MacOS/VStitcher 2>vstitcher_out.log"
+alias vstitcher="unset PYTHONPATH && /Applications/Browzwear/VStitcher\ 2020\ May\ Edition.app/Contents/MacOS/VStitcher 2>vstitcher_out.log"
 
 alias tunnel="ssh -i ~/.ssh/google_compute_engine -D 8080 -C -q -N thoma@35.188.111.156"
 function switchmac() {
@@ -51,7 +56,7 @@ function workon() {
     source ~/.virtualenvs/"$1"/bin/activate
 }
 
-function convert() {
+function convert_video() {
     ffmpeg -i "$1" -strict experimental -f mp4 -vcodec libx264 -acodec aac -ab 160000 -ac 2 -preset slow -crf 22 ./out/"$1"
 }
 
@@ -68,6 +73,11 @@ function gda() {
         echo "Must pass a file path"
     fi
 }
+
+# Tab complete c against code
+c() { cd /Users/thoma/code/$1; }
+_c() { _files -W /Users/thoma/code -/; }
+compdef _c c
 
 function rfr() { # Recursive find and replace using the-silver-searcher
     if [ $# -ne 2 ]
