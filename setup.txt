@@ -1,0 +1,13 @@
+# Install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+git clone https://github.com/stephenthoma/dotfiles.git
+brew install alacritty tmux neovim zsh go pyenv fzf 1password-cli n reattach-to-user-namespace the_silver_searcher z rg fd
+pip install alacritty-colorscheme
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+go install github.com/rhysd/dotfiles@latest
+~/go/bin/dotfiles link --dry
+# within tmux hit Ctrl-A I to install plugins
+# Download and add these fonts to the OS
+curl https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Meslo/M-DZ/Regular/complete/Meslo%20LG%20M%20DZ%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true
+curl https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Meslo/M-DZ/Italic/complete/Meslo%20LG%20M%20DZ%20Italic%20Nerd%20Font%20Complete%20Mono.ttf?raw=true
+curl https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Meslo/M-DZ/Bold/complete/Meslo%20LG%20M%20DZ%20Bold%20Nerd%20Font%20Complete%20Mono.ttf?raw=true
