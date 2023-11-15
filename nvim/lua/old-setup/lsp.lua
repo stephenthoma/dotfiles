@@ -15,7 +15,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- LSP Server config
 require("lspconfig").pyright.setup({
-  cmd={"/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin/pyright-langserver", "--stdio"},
+  cmd={"/Users/sthoma/.pyenv/versions/3.10.11/bin/pyright-langserver", "--stdio"},
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities
 })

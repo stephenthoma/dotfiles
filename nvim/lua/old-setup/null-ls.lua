@@ -6,6 +6,9 @@ require("null-ls").setup({
   sources = {
     null_ls.builtins.formatting.black.with({ filetypes = {"python"}, args = {"--quiet", "--fast", "--line-length", "100", "-"}}),
     null_ls.builtins.formatting.prettier.with({
+      dynamic_command = function()
+        return 'prettier'
+      end,
       filetypes = {
         "javascript",
         "typescript",

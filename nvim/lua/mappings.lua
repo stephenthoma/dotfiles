@@ -44,11 +44,8 @@ map("n", "<esc>", ":noh<CR><esc>", { silent = true })
 -- - Commands that take you something prefixed with 'g' for 'go'
 -- - Commands that help you find something prefixed with 'f' for 'find'
 
--- Alpha
-map("n", "<F1>", "<cmd>Alpha<CR>", { silent = true })
-
 -- Undo tree
-map("n", "<F5>", "UndoTreeToggle<CR>", { silent = true })
+-- map("n", "<F5>", "UndoTreeToggle<CR>", { silent = true })
 
 -- LSP
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { silent = true})
@@ -83,8 +80,4 @@ map("v", "<leader>gl", "<cmd>lua require'hop'.hint_lines()<CR>")
 -- Comment
 map("n", "<leader>/", "<cmd> lua require('Comment.api').toggle.linewise.current()<CR>")
 map("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
-
--- ChatGPT
-map("v", "<leader><leader>", ":Chat ")
-vim.g["codegpt_openai_api_key"] = "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"
 

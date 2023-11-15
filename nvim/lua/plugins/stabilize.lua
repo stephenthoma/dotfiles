@@ -1,0 +1,2 @@
+return { "luukvbaal/stabilize.nvim" }
+
