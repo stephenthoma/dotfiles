@@ -1,6 +1,7 @@
 [user]
 	name = stephenthoma
 	email = stephen@thoma.io
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfjCLi4ARS8+YAuxxXa7SD4DlxIUThUI1YhnvHQy6WP
 [alias]
 	co = checkout
 	rb = rebase
@@ -37,3 +38,10 @@
 	tool = vimdiff
 [init]
 	defaultBranch = master
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
+
