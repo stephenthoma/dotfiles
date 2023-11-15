@@ -1,11 +1,20 @@
+autoload -Uz compinit
+compinit
+
+alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
 alias h='cd ~'
 alias lsa='ls -A'
 alias cls='clear; ls'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias python-history='cat ~/.python_history'
 
-alias day='/Users/thoma/Library/Python/3.9/bin/alacritty-colorscheme -V apply /Users/thoma/code/dotfiles/dayfox_alacritty.yml 1>&-'
-alias night='/Users/thoma/Library/Python/3.9/bin/alacritty-colorscheme -V apply /Users/thoma/code/dotfiles/nightfox_alacritty.yml 1>&-'
+alias day='$HOME/Library/Python/3.9/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/dayfox_alacritty.yml 1>&-'
+alias night='$HOME/Library/Python/3.9/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/nightfox_alacritty.yml 1>&-'
 
 alias octal='stat -f %Mp%Lp'
 alias gs='git status'
@@ -14,51 +23,11 @@ alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
-alias grh='git reset head'
+alias grh='git reset HEAD~1'
 alias gpl='git pull'
 alias gpr='gh pr create'
 alias grs='git restore --staged'
-
-alias hf="sudo vim /private/etc/hosts"
-alias vup="cd $HOME/vagrant-box; vagrant up"
-alias vssh="cd $HOME/vagrant-box; vagrant ssh"
-
-alias beep="printf '\a'"
-
-alias vim="nvim"
-
-alias python="python3"
-alias pip="pip3"
-
-alias blender="/Applications/Blender/blender.app/Contents/MacOS/blender"
-alias vstitcher="unset PYTHONPATH && /Applications/Browzwear/VStitcher\ 2020\ May\ Edition.app/Contents/MacOS/VStitcher 2>vstitcher_out.log"
-
-alias tunnel="ssh -i ~/.ssh/google_compute_engine -D 8080 -C -q -N thoma@35.188.111.156"
-function switchmac() {
-    sudo ifconfig en0 ether "$1"
-}
-
-
-function gmosh() {
-    if [ -n "$1" ]
-    then
-        USER=$(echo "$1" | cut -f1 -d @)
-        INSTANCE=$(echo "$1" | cut -f2 -d @)
-        PIP=$(gcloud compute instances list --filter="$INSTANCE" --limit=1  --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
-        mosh "$USER"@"$PIP" --ssh="ssh -i ~/.ssh/google_compute_engine"
-    else
-        echo "mosh into gcloud instances"
-        echo "gmosh user@instance"
-    fi
-}
-
-function workon() {
-    source ~/.virtualenvs/"$1"/bin/activate
-}
-
-function convert_video() {
-    ffmpeg -i "$1" -strict experimental -f mp4 -vcodec libx264 -acodec aac -ab 160000 -ac 2 -preset slow -crf 22 ./out/"$1"
-}
+alias gsp='git stash pop'
 
 function gda() {
     if [ -n "$1" ]
@@ -74,9 +43,21 @@ function gda() {
     fi
 }
 
+alias beep="printf '\a'"
+
+alias vim="nvim"
+
+alias python="python3"
+alias pip="pip3"
+
+function workon() {
+    source ~/.virtualenvs/"$1"/bin/activate
+}
+
+
 # Tab complete c against code
-c() { cd /Users/thoma/code/$1; }
-_c() { _files -W /Users/thoma/code -/; }
+c() { cd $HOME/code/$1; }
+_c() { _files -W $HOME/code -/; }
 compdef _c c
 
 function rfr() { # Recursive find and replace using the-silver-searcher
