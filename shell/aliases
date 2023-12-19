@@ -33,13 +33,19 @@ function gda() {
     if [ -n "$1" ]
     then
         git diff "$1"
-        read "response?git add $1? (y/N) "
+        echo "git add $1? (y/N/p): "
+        read -r response
         if [[ $response =~ [yY](es)* ]]
         then
             git add "$1"
+        elif [[ $response = "p" ]]
+        then
+            git add -p "$1"
         fi
     else
-        echo "Must pass a file path"
+        echo "You must provide a file path as a parameter. Usage: gda [FILE_PATH]"
+        echo "This function will execute 'git diff' for the given file, and then ask if you want to 'git add' the file."
+        echo "Input 'y' or 'yes' to add the file, 'p' to add in patch mode or any other key to skip."
     fi
 }
 
