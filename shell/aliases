@@ -2,6 +2,7 @@ autoload -Uz compinit
 compinit
 
 alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
+alias aider='aider --no-auto-commits --4turbo'
 
 alias ..='cd ..'
 alias ...='cd ../..'
