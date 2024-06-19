@@ -44,7 +44,7 @@ function gda() {
     if [ -n "$1" ]
     then
         git diff "$1"
-        echo "git add $1? (y/N/p): "
+        echo "git add $1? (y/N/p/D): "
         read -r response
         if [[ $response =~ [yY](es)* ]]
         then
@@ -52,11 +52,21 @@ function gda() {
         elif [[ $response = "p" ]]
         then
             git add -p "$1"
+        elif [[ $response = "D" ]]
+        then
+            echo "Are you sure you want to discard changes? (Y/n): "
+            read -r confirm_discard
+            if [[ $confirm_discard =~ [Yy](es)* ]]
+            then
+                git checkout -- "$1"
+            else
+                echo "Discard cancelled."
+            fi
         fi
     else
         echo "You must provide a file path as a parameter. Usage: gda [FILE_PATH]"
         echo "This function will execute 'git diff' for the given file, and then ask if you want to 'git add' the file."
-        echo "Input 'y' or 'yes' to add the file, 'p' to add in patch mode or any other key to skip."
+        echo "Input 'y' or 'yes' to add the file, 'p' to add in patch mode, 'D' to discard changes, or any other key to skip."
     fi
 }
 
