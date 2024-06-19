@@ -16,9 +16,11 @@ return {
 				lazy_nvim = { auto_register = true },
 			},
 			keymaps = {
+				-- Folds
 				{ "<leader><CR>", "zA", desc = "Recursively open/close current fold" },
 				{ "zM", "zM", desc = "Close all folds" },
 				{ "zR", "zR", desc = "Open all folds" },
+				-- Buffers
 				{ "<leader><Tab>", ":BufferLineMoveNext<CR>", desc = "Move buffer forwards in bufferline" },
 				{ "<leader><S-Tab>", ":BufferLineMovePrev<CR>", desc = "Move buffer back in bufferline" },
 				{ "<leader>w", ":bdelete<CR>", desc = "Close current buffer" },
