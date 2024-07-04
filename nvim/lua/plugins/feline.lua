@@ -16,7 +16,15 @@ end
 local c = {
 	vimode = {
 		provider = function()
-			return string.format(" %s ", u.vi.text[vim.fn.mode()])
+			local mode = vim.fn.mode()
+			local recording = vim.fn.reg_recording()
+			local mode_text = u.vi.text[mode]
+
+			if recording ~= "" then
+				return string.format(" REC @%s ", recording)
+			else
+				return string.format(" %s ", mode_text)
+			end
 		end,
 		hl = vi_mode_hl,
 	},
