@@ -34,7 +34,11 @@ return {
 		{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
 
 		{ "<leader>gr", '<cmd>lua require("telescope.builtin").lsp_references()<CR>', desc = "Go to implementation" },
-		{ "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+		{
+			"<leader>sd",
+			'<cmd>lua require("telescope.builtin").diagnostics({initial_mode="normal", bufnr=0})<CR>',
+			desc = "Current buffer diagnostics",
+		},
 		{
 			"<leader>ss",
 			'<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>',

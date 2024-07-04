@@ -1,127 +1,39 @@
-LSP_SERVERS = {
-	-- python
-	"pyright",
-	-- web dev
-	"cssls",
-	"eslint",
-	"prettier",
-	"tailwindcss",
-	"tsserver",
-	-- general
-	"jsonls",
-	"dockerls",
-	"lua_ls",
-	"luaformatter",
-	"yamlls",
-}
+local signs = { Error = "● ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+	opts = opts or {}
+	opts.border = opts.border or "single"
+	opts.max_width = opts.max_width or 100
+	return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
 return {
-	{
-		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"hrsh7th/cmp-nvim-lsp",
-		},
-		opts = {
-			-- options for vim.diagnostic.config()
-			diagnostics = {
-				underline = true,
-				update_in_insert = false,
-				virtual_text = {
-					spacing = 4,
-					source = "if_many",
-					prefix = "●",
-				},
-				severity_sort = true,
-			},
-			-- add any global capabilities here
-			capabilities = {},
-			-- Automatically formAt on save
-			autoformat = true,
-			-- options for vim.lsp.buf.format
-			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
-			},
-		},
-		keys = {
-			{
-				"gd",
-				function()
-					require("telescope.builtin").lsp_definitions({ reuse_win = true })
-				end,
-				desc = "Goto Definition",
-			},
-			{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-			{ "<leader>g]", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Go to next diagnostic" },
-			{ "<leader>k", "vim.lsp.buf.hover", desc = "Hover" },
-			{ "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Open float" },
-		},
-		config = function(_, opts)
-			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-			require("plugins.lsp.format").setup(opts)
-
-			local servers = LSP_SERVERS
-			local capabilities = vim.tbl_deep_extend(
-				"force",
-				{},
-				vim.lsp.protocol.make_client_capabilities(),
-				require("cmp_nvim_lsp").default_capabilities(),
-				opts.capabilities or {}
-			)
-
-			local function setup(server)
-				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(capabilities),
-				}, servers[server] or {})
-
-				require("lspconfig")[server].setup(server_opts)
-			end
-
-			-- get all the servers that are available thourgh mason-lspconfig
-			local have_mason, mlsp = pcall(require, "mason-lspconfig")
-
-			if have_mason then
-				mlsp.setup({ ensure_installed = LSP_SERVERS })
-				mlsp.setup_handlers({ setup })
-			end
-		end,
-	},
-
-	-- formatters
-	{
-		"jose-elias-alvarez/null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "mason.nvim" },
-		opts = function()
-			local nls = require("null-ls")
-			return {
-				root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-				sources = {
-					nls.builtins.formatting.stylua,
-					nls.builtins.formatting.lua_format,
-					nls.builtins.formatting.usort,
-					nls.builtins.formatting.black.with({
-						extra_args = { "--line-length", "100" },
-					}),
-					nls.builtins.formatting.prettier,
-				},
-			}
-		end,
-	},
-
-	-- cmdline tools and lsp servers
+	-- Manages installation of command line formatters, LSP servers, etc
 	{
 
 		"williamboman/mason.nvim",
 		cmd = "Mason",
 		opts = {
 			ensure_installed = {
-				"stylua",
+				"black",
+				"css-lsp",
+				"dockerfile-language-server",
+				"eslint-lsp",
+				"json-lsp",
+				"lua-language-server",
+				"prettier",
+				"pyright",
 				"shfmt",
-				-- "flake8",
+				"stylua",
+				"tailwindcss-language-server",
+				"typescript-language-server",
+				"usort",
+				"yaml-language-server",
 			},
 		},
 		config = function(_, opts)
@@ -140,6 +52,67 @@ return {
 			else
 				ensure_installed()
 			end
+		end,
+	},
+	{ -- Utility for automated registration of LSPs installed by Mason w/  nvim-lspconfig
+		"williamboman/mason-lspconfig",
+		config = function(_)
+			require("mason-lspconfig").setup()
+		end,
+	},
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		opts = {
+			-- options for vim.diagnostic.config()
+			diagnostics = {
+				underline = true,
+				update_in_insert = false,
+				virtual_text = false, -- Disable builtin virtual text diagnostic
+				severity_sort = true,
+			},
+			-- add any global capabilities here
+			capabilities = {},
+			-- options for vim.lsp.buf.format
+			format = {
+				formatting_options = nil,
+				timeout_ms = nil,
+			},
+		},
+		keys = {
+			{
+				"gd",
+				function()
+					require("telescope.builtin").lsp_definitions({ reuse_win = true })
+				end,
+				desc = "Goto Definition",
+			},
+			{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+			{ "<leader>g]", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Go to next diagnostic" },
+			{ "<leader>k", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Show hover (func signature)" },
+			{ "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Open float" },
+		},
+		config = function(_, opts)
+			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+			require("mason-lspconfig").setup_handlers({
+				-- The first entry (without a key) will be the default handler
+				-- and will be called for each installed server that doesn't have
+				-- a dedicated handler.
+				function(server_name) -- default handler (optional)
+					require("lspconfig")[server_name].setup({})
+				end,
+				-- Next, you can provide a dedicated handler for specific servers.
+				-- For example, a handler override for the `rust_analyzer`:
+				-- ["rust_analyzer"] = function ()
+				--     require("rust-tools").setup {}
+				-- end
+			})
 		end,
 	},
 }
