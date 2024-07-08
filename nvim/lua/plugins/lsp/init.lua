@@ -1,9 +1,11 @@
+-- Set symbols used in gutter
 local signs = { Error = "● ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+-- Set styling of auto complete window
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 	opts = opts or {}
@@ -101,17 +103,39 @@ return {
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
 			require("mason-lspconfig").setup_handlers({
-				-- The first entry (without a key) will be the default handler
-				-- and will be called for each installed server that doesn't have
-				-- a dedicated handler.
-				function(server_name) -- default handler (optional)
+				-- Default handler called for any installed server not specified below
+				function(server_name)
 					require("lspconfig")[server_name].setup({})
 				end,
-				-- Next, you can provide a dedicated handler for specific servers.
-				-- For example, a handler override for the `rust_analyzer`:
-				-- ["rust_analyzer"] = function ()
-				--     require("rust-tools").setup {}
-				-- end
+				-- Dedicated handlers for specific servers
+				["lua_ls"] = function()
+					require("lspconfig").lua_ls.setup({
+						on_init = function(client)
+							local path = client.workspace_folders[1].name
+							if
+								vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc")
+							then
+								return
+							end
+
+							client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+								runtime = {
+									version = "LuaJIT", -- what version of Lua (LuaJIT for neovim)
+								},
+								-- Make the server aware of Neovim runtime files
+								workspace = {
+									checkThirdParty = false,
+									library = {
+										vim.env.VIMRUNTIME,
+									},
+								},
+							})
+						end,
+						settings = {
+							Lua = {},
+						},
+					})
+				end,
 			})
 		end,
 	},
