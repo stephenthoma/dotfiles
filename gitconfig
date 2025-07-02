@@ -38,10 +38,3 @@
 	tool = vimdiff
 [init]
 	defaultBranch = master
-[gpg]
-  format = ssh
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-[commit]
-  gpgsign = true
-

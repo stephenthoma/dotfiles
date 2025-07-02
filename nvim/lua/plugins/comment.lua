@@ -5,7 +5,18 @@ return {
 		"windwp/nvim-ts-autotag", -- autoclose HTML tags
 	},
 	keys = {
-		{ "<leader>/", "<cmd> lua require('Comment.api').toggle.linewise.current()<CR>", desc = "Toggle line comment" },
+		{
+			"<leader>/",
+			"<Plug>(comment_toggle_linewise_visual)",
+			mode = { "v" },
+			desc = "Toggle line comment",
+		},
+		{
+			"<leader>/",
+			"<Plug>(comment_toggle_linewise_current)",
+			mode = { "n" },
+			desc = "Toggle line comment",
+		},
 	},
 	lazy = false,
 	config = function()
@@ -14,3 +25,4 @@ return {
 		})
 	end,
 }
+
