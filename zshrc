@@ -77,4 +77,4 @@ unset __conda_setup
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-source /Users/sthoma/.config/op/plugins.sh # 1password
+[ -e /Users/sthoma/.config/op/plugins.sh ] && source /Users/sthoma/.config/op/plugins.sh # 1password

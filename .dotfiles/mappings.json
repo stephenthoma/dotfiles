@@ -1,12 +1,13 @@
 {
-  "zshenv" : "~/.zshenv",
-  "zshrc" : "~/.zshrc",
-  "shell" : "~/.shell",
+  "zshenv": "~/.zshenv",
+  "zshrc": "~/.zshrc",
+  "shell": "~/.shell",
   "tmux.conf" : "~/.tmux.conf",
-  "vimrc" : "~/.vimrc",
+  "vimrc": "~/.vimrc",
   "nvim": "~/.config/nvim",
   "global-gitignore": "~/.global-gitignore",
-  "gitconfig" : "~/.gitconfig",
-  "irbrc" : "~/.irbrc",
-  "alacritty.yml": "~/.config/alacritty/alacritty.yml"
+  "gitconfig": "~/.gitconfig",
+  "irbrc": "~/.irbrc",
+  "alacritty.toml": "~/.config/alacritty/alacritty.toml",
+  "vimrc_background": "~/.vimrc_background"
 }

@@ -14,8 +14,8 @@ alias cls='clear; ls'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias python-history='cat ~/.python_history'
 
-alias day='$HOME/Library/Python/3.9/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/dayfox_alacritty.yml 1>&-'
-alias night='$HOME/Library/Python/3.9/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/nightfox_alacritty.yml 1>&-'
+alias day='$HOME/.pyenv/versions/3.12.11/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/dayfox_alacritty.yml 1>&-'
+alias night='$HOME/.pyenv/versions/3.12.11/bin/alacritty-colorscheme -V apply $HOME/code/dotfiles/nightfox_alacritty.yml 1>&-'
 
 alias octal='stat -f %Mp%Lp'
 alias gs='git status'
